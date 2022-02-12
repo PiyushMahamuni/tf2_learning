@@ -5,7 +5,7 @@
     <arg name="turtle_to_kill" default="turtle1"/>
     <arg name="carrot_parent" default="$(arg turtle1)"/>
     <arg name="carrot_frame" default="carrot"/>
-    <arg name="seconds_in_past" defualt="5.0"/>
+    <arg name="seconds_in_past" default="5.0"/>
     <arg name="fixed_frame" default="world"/>
     <arg name="radius" default="1.5"/>
 
