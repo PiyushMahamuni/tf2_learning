@@ -1,0 +1,7 @@
+<launch>
+    <arg name="turtle_to_follow" default="turtle1"/>
+    <node pkg="tf2_learning" type="turtle_tf2_listener.py" name="listener" output="screen">
+        <param name="turtle" type="string" value="turtle2"/>
+        <param name="turtle_to_follow" type="string" value="turtle1"/>
+    </node>
+</launch>

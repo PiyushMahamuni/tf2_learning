@@ -1,0 +1,33 @@
+<launch>
+    <!-- Arguments -->
+    <arg name="turtle1" default="turtle1"/>
+    <arg name="turtle2" default="turtle2"/> <!--aka following turtle-->
+    <arg name="turtle_to_kill" default="turtle1"/>
+    <arg name="carrot_parent" default="$(arg turtle1)"/>
+    <arg name="carrot_frame" default="carrot"/>
+
+    <node pkg="turtlesim" type="turtlesim_node" name="sim"/>
+    
+    <node pkg="tf2_learning" type="kill_turtle.py" name="kill_$(arg turtle_to_kill)">
+        <param name="turtle_to_kill" type="string" value="$(arg turtle_to_kill)"/>
+    </node>
+
+    <node pkg="tf2_learning" type="setup_turtle.py" name="setup_$(arg turtle1)">
+        <param name="turtle" type="string" value="$(arg turtle1)"/>
+    </node>
+    <node pkg="tf2_learning" type="setup_turtle.py" name="setup_$(arg turtle2)">
+        <param name="turtle" type="string" value="$(arg turtle2)"/>
+    </node>
+
+    <!-- Setup carrot frame -->
+    <node pkg="tf2_learning" type="add_carrot_frame.py" name="add_$(arg carrot_frame)_frame">
+        <param name="carrot_frame" type="string" value="$(arg carrot_frame)"/>
+        <param name="parent_frame" type="string" value="$(arg carrot_parent)"/>
+    </node>
+
+    <!-- Setup Follower -->
+    <node pkg="tf2_learning" type="setup_follower.py" name="$(arg carrot_frame)_follower">
+        <param name="carrot_frame" type="string" value="$(arg carrot_frame)"/>
+        <param name="follower_frame" type="string" value="$(arg turtle2)"/>
+    </node>
+</launch>

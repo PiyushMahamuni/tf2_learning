@@ -1,0 +1,27 @@
+<launch>
+    <!-- ARGUMENTS -->
+    <arg name="x" default="5.0"/>
+    <arg name="y" default="5.0"/>
+    <arg name="z" default="0.0"/>
+    <arg name="roll" default="0.0"/>
+    <arg name="pitch" default="0.0"/>
+    <arg name="yaw" default="0."/>
+    <arg name="parent_frame" default="world"/>
+    <arg name="static_frame" default="carrot"/>
+    
+    <!-- Start turtlesim node -->
+    <node pkg="turtlesim" type="turtlesim_node" name="sim"/>
+    <!-- Attach broadcaster for turlte1 -->
+    <node pkg="tf2_learning" type="setup_turtle.py" name="setup_turtle1">
+        <param name="turtle" type="string" value="turtle1"/>
+    </node>
+
+    <node pkg="tf2_learning" type="static_turtle_tf2_broadcaster.py" name="$(arg static_frame)_static_frame_broadcaster"
+    args="$(arg parent_frame) $(arg static_frame) $(arg x) $(arg y) $(arg z) $(arg roll) $(arg pitch) $(arg yaw)"/>
+
+    <!-- Proper way to launch static frames -->
+    <node pkg="tf2_ros" type="static_transform_publisher" name="carrot1_broadcaster" args="1.0 1.0 0.0 0.0 0.0 0.0 turtle1 carrot1"/>
+    <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="link1_broadcaster" args="1 0 0 0 0 0 1 link1_parent link1" /> -->
+
+    <!-- THE STATIC FRAMES ARE BROADCASTED USING STATIC_BROADCASTER ARE BROADCASTED TO /tf_static TOPIC-->
+</launch>
